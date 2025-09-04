@@ -1,0 +1,5 @@
+{
+  "name": "MyTea",
+  "description": "A visually appealing news and article aggregator website that fetches content from a custom n8n automation, featuring parallax backgrounds and smooth animations.",
+  "requestFramePermissions": []
+}
