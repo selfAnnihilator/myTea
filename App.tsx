@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import ArticlesSection from './components/ArticlesSection';
 import StaticRoomBackground from './components/StaticRoomBackground';
+import CustomCursor from './components/CustomCursor';
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -66,6 +67,7 @@ const App: React.FC = () => {
     <div 
       className="font-sans antialiased text-white selection:bg-teal-300 selection:text-black min-h-screen bg-transparent isolate"
     >
+      <CustomCursor />
       <StaticRoomBackground />
 
       <main>
