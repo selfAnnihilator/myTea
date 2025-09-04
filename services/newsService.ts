@@ -13,7 +13,8 @@ const mockArticles: Article[] = [
     imageUrl: 'https://picsum.photos/seed/tech1/600/400',
     publisher: 'Eco Watch',
     sourceUrl: '#',
-    overview: 'Exploring the breakthroughs in solar and wind power that are set to revolutionize the energy sector in the coming decade.'
+    overview: 'Exploring the breakthroughs in solar and wind power that are set to revolutionize the energy sector in the coming decade.',
+    category: 'Science'
   },
   {
     id: 2,
@@ -21,7 +22,8 @@ const mockArticles: Article[] = [
     imageUrl: 'https://picsum.photos/seed/health2/600/400',
     publisher: 'MediTech Today',
     sourceUrl: '#',
-    overview: 'How artificial intelligence is transforming diagnostics, treatment plans, and patient care across the globe.'
+    overview: 'How artificial intelligence is transforming diagnostics, treatment plans, and patient care across the globe.',
+    category: 'Health'
   },
   {
     id: 3,
@@ -29,7 +31,8 @@ const mockArticles: Article[] = [
     imageUrl: 'https://picsum.photos/seed/finance3/600/400',
     publisher: 'Finance Weekly',
     sourceUrl: '#',
-    overview: 'An in-depth analysis of the recent economic shifts and their ripple effects on stock markets worldwide.'
+    overview: 'An in-depth analysis of the recent economic shifts and their ripple effects on stock markets worldwide.',
+    category: 'Finance'
   },
   {
     id: 4,
@@ -37,7 +40,8 @@ const mockArticles: Article[] = [
     imageUrl: 'https://picsum.photos/seed/lifestyle4/600/400',
     publisher: 'Simple Life Magazine',
     sourceUrl: '#',
-    overview: 'Discover the principles of minimalism and how decluttering your life can lead to greater happiness and focus.'
+    overview: 'Discover the principles of minimalism and how decluttering your life can lead to greater happiness and focus.',
+    category: 'Lifestyle'
   },
   {
     id: 5,
@@ -45,7 +49,8 @@ const mockArticles: Article[] = [
     imageUrl: 'https://picsum.photos/seed/science5/600/400',
     publisher: 'Oceanic Geographic',
     sourceUrl: '#',
-    overview: 'New discoveries from the Mariana Trench shed light on undiscovered species and the secrets of our planet\'s oceans.'
+    overview: 'New discoveries from the Mariana Trench shed light on undiscovered species and the secrets of our planet\'s oceans.',
+    category: 'Science'
   },
   {
     id: 6,
@@ -53,7 +58,8 @@ const mockArticles: Article[] = [
     imageUrl: 'https://picsum.photos/seed/food6/600/400',
     publisher: 'World Gastronomy',
     sourceUrl: '#',
-    overview: 'Embark on a flavorful journey through the vibrant street food scenes of Thailand, Vietnam, and Malaysia.'
+    overview: 'Embark on a flavorful journey through the vibrant street food scenes of Thailand, Vietnam, and Malaysia.',
+    category: 'Food'
   }
 ];
 

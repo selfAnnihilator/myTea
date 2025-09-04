@@ -188,6 +188,12 @@ const Navbar: React.FC<NavbarProps> = ({
 
           <div className="logo-container">
             <img src={logo} alt={logoAlt} className="logo" />
+            <span 
+              className="font-display text-2xl ml-3"
+              style={{ color: menuColor || '#000' }}
+            >
+              MyTea
+            </span>
           </div>
 
           <button
