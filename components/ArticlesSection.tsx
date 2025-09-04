@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { fetchArticles } from '../services/newsService';
 import type { Article, Category } from '../types';
@@ -6,30 +7,35 @@ import AnimatedSection from './AnimatedSection';
 import LoadingSpinner from './LoadingSpinner';
 import { useOnScreen } from '../hooks/useOnScreen';
 
+const ARTICLES_PER_LOAD = 6; // Corresponds to two rows of three articles
+
 const ArticlesSection: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
-  // Start loading as false, as we will trigger it only when visible
   const [loading, setLoading] = useState(false);
-  // State to ensure we only fetch data once
+  const [error, setError] = useState<string | null>(null);
   const [hasFetched, setHasFetched] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | 'All'>('All');
+  const [visibleCount, setVisibleCount] = useState(ARTICLES_PER_LOAD);
 
-  // Ref for the section to track its visibility
   const sectionRef = useRef<HTMLElement>(null);
   const isVisible = useOnScreen(sectionRef, { threshold: 0.1 });
 
   useEffect(() => {
-    // Fetch articles only when the section becomes visible and hasn't been fetched yet
     if (isVisible && !hasFetched) {
       const loadArticles = async () => {
         setHasFetched(true);
         setLoading(true);
+        setError(null); // Reset error state on new fetch attempt
         try {
           const fetchedArticles = await fetchArticles();
           setArticles(fetchedArticles);
-        } catch (error) {
-          console.error("Failed to fetch articles:", error);
-          // Optionally set an error state here to display a message
+        } catch (err) {
+          console.error("Failed to fetch articles:", err);
+          if (err instanceof Error) {
+            setError(err.message);
+          } else {
+            setError("An unknown error occurred while fetching articles.");
+          }
         } finally {
           setLoading(false);
         }
@@ -37,21 +43,30 @@ const ArticlesSection: React.FC = () => {
       loadArticles();
     }
   }, [isVisible, hasFetched]);
+  
+  useEffect(() => {
+    setVisibleCount(ARTICLES_PER_LOAD);
+  }, [selectedCategory]);
 
-  // Derive categories from articles for the filter buttons
   const categories = useMemo(() => {
     if (articles.length === 0) return [];
     const uniqueCategories = [...new Set(articles.map(article => article.category))];
-    return ['All', ...uniqueCategories.sort()];
+    // A specific order might be better than alphabetical
+    const preferredOrder: Category[] = ['Politics', 'Business', 'Technology', 'Health', 'Science', 'Sports', 'Entertainment'];
+    const sortedCategories = uniqueCategories.sort((a, b) => preferredOrder.indexOf(a as Category) - preferredOrder.indexOf(b as Category));
+    return ['All', ...sortedCategories];
   }, [articles]);
 
-  // Filter articles based on the selected category
   const filteredArticles = useMemo(() => {
     if (selectedCategory === 'All') {
       return articles;
     }
     return articles.filter(article => article.category === selectedCategory);
   }, [articles, selectedCategory]);
+  
+  const articlesToShow = useMemo(() => {
+    return filteredArticles.slice(0, visibleCount);
+  }, [filteredArticles, visibleCount]);
 
 
   return (
@@ -62,7 +77,6 @@ const ArticlesSection: React.FC = () => {
           <p className="text-lg text-gray-300 mt-4">Discover what's happening around the world.</p>
         </AnimatedSection>
 
-        {/* Category Filters */}
         {!loading && articles.length > 0 && (
           <AnimatedSection className="flex justify-center items-center flex-wrap gap-3 sm:gap-4 mb-12">
             {categories.map((category) => (
@@ -83,18 +97,39 @@ const ArticlesSection: React.FC = () => {
         )}
 
         {loading && <LoadingSpinner />}
+
+        {!loading && error && (
+            <AnimatedSection className="text-center py-16 bg-red-900/20 rounded-lg">
+                <p className="text-2xl text-red-300 font-semibold">Could Not Load News</p>
+                <p className="text-lg text-red-300/80 mt-2">{error}</p>
+            </AnimatedSection>
+        )}
         
-        {!loading && filteredArticles.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredArticles.map((article, index) => (
-              <AnimatedSection key={article.id} style={{ transitionDelay: `${index * 150}ms` }}>
-                  <ArticleCard article={article} />
-              </AnimatedSection>
-            ))}
-          </div>
+        {!loading && !error && articlesToShow.length > 0 && (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {articlesToShow.map((article, index) => (
+                <AnimatedSection key={article.id} style={{ transitionDelay: `${(index % ARTICLES_PER_LOAD) * 100}ms` }}>
+                    <ArticleCard article={article} />
+                </AnimatedSection>
+              ))}
+            </div>
+
+            {filteredArticles.length > visibleCount && (
+                <AnimatedSection className="text-center mt-12">
+                    <button
+                        onClick={() => setVisibleCount(prevCount => prevCount + ARTICLES_PER_LOAD)}
+                        className="bg-white/10 hover:bg-white/20 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-white/50 transform hover:scale-105"
+                        aria-label="Load more articles"
+                    >
+                        Load More
+                    </button>
+                </AnimatedSection>
+            )}
+          </>
         )}
 
-        {!loading && filteredArticles.length === 0 && articles.length > 0 && (
+        {!loading && !error && filteredArticles.length === 0 && articles.length > 0 && (
             <AnimatedSection className="text-center py-16">
                 <p className="text-xl text-gray-400">No articles found in this category.</p>
             </AnimatedSection>

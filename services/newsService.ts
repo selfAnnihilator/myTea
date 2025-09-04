@@ -1,72 +1,65 @@
 /**
- * @file This service is responsible for fetching news articles.
- * NOTE: This implementation uses local mock data and does not require an API key.
- * It simulates a network request to allow for easy local development and testing.
- * To connect to a real news API, you would replace the logic within `fetchArticles`.
+ * @file This service is responsible for fetching news articles from the Spaceflight News API.
+ * This API is open-source, requires no key, and supports client-side requests,
+ * making it a reliable choice for this application.
  */
-import type { Article } from '../types';
+import type { Article, Category } from '../types';
 
-const mockArticles: Article[] = [
-  {
-    id: 1,
-    title: 'The Future of Renewable Energy: A Deep Dive',
-    imageUrl: 'https://picsum.photos/seed/tech1/600/400',
-    publisher: 'Eco Watch',
-    sourceUrl: '#',
-    overview: 'Exploring the breakthroughs in solar and wind power that are set to revolutionize the energy sector in the coming decade.',
-    category: 'Science'
-  },
-  {
-    id: 2,
-    title: 'AI in Healthcare: The Next Frontier',
-    imageUrl: 'https://picsum.photos/seed/health2/600/400',
-    publisher: 'MediTech Today',
-    sourceUrl: '#',
-    overview: 'How artificial intelligence is transforming diagnostics, treatment plans, and patient care across the globe.',
-    category: 'Health'
-  },
-  {
-    id: 3,
-    title: 'Global Markets React to New Economic Policies',
-    imageUrl: 'https://picsum.photos/seed/finance3/600/400',
-    publisher: 'Finance Weekly',
-    sourceUrl: '#',
-    overview: 'An in-depth analysis of the recent economic shifts and their ripple effects on stock markets worldwide.',
-    category: 'Finance'
-  },
-  {
-    id: 4,
-    title: 'The Art of Minimalist Living: Less is More',
-    imageUrl: 'https://picsum.photos/seed/lifestyle4/600/400',
-    publisher: 'Simple Life Magazine',
-    sourceUrl: '#',
-    overview: 'Discover the principles of minimalism and how decluttering your life can lead to greater happiness and focus.',
-    category: 'Lifestyle'
-  },
-  {
-    id: 5,
-    title: 'Exploring the Mysteries of the Deep Ocean',
-    imageUrl: 'https://picsum.photos/seed/science5/600/400',
-    publisher: 'Oceanic Geographic',
-    sourceUrl: '#',
-    overview: 'New discoveries from the Mariana Trench shed light on undiscovered species and the secrets of our planet\'s oceans.',
-    category: 'Science'
-  },
-  {
-    id: 6,
-    title: 'Culinary Adventures: A Taste of Southeast Asia',
-    imageUrl: 'https://picsum.photos/seed/food6/600/400',
-    publisher: 'World Gastronomy',
-    sourceUrl: '#',
-    overview: 'Embark on a flavorful journey through the vibrant street food scenes of Thailand, Vietnam, and Malaysia.',
-    category: 'Food'
+const API_BASE_URL = 'https://api.spaceflightnewsapi.net/v4/articles/?limit=50';
+
+// A simple function to categorize articles based on keywords.
+const categorizeArticle = (title: string, summary: string): Category => {
+  const lowerCaseContent = `${title.toLowerCase()} ${summary.toLowerCase()}`;
+  if (/\b(rocket|spacex|nasa|launch|engine|satellite|crew|dragon|artemis)\b/.test(lowerCaseContent)) {
+    return 'Technology';
   }
-];
+  if (/\b(planet|star|galaxy|astronomy|science|discovery|mars|moon)\b/.test(lowerCaseContent)) {
+    return 'Science';
+  }
+  return 'Technology'; // Default category for space news
+};
 
-export const fetchArticles = (): Promise<Article[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(mockArticles);
-    }, 1500); // Simulate network delay
-  });
+interface SpaceflightApiArticle {
+  id: number;
+  title: string;
+  url: string;
+  image_url: string;
+  news_site: string;
+  summary: string;
+  published_at: string;
+}
+
+interface SpaceflightApiResponse {
+  results: SpaceflightApiArticle[];
+}
+
+export const fetchArticles = async (): Promise<Article[]> => {
+  try {
+    const response = await fetch(API_BASE_URL);
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
+    }
+    const data: SpaceflightApiResponse = await response.json();
+
+    const articles = data.results
+      .filter(article => article.title && article.image_url && article.summary)
+      .map((article): Article => ({
+        id: article.id.toString(),
+        title: article.title,
+        imageUrl: article.image_url,
+        publisher: article.news_site,
+        sourceUrl: article.url,
+        overview: article.summary,
+        category: categorizeArticle(article.title, article.summary),
+      }));
+
+    return articles;
+  } catch (error) {
+    console.error("Failed to fetch articles:", error);
+    if (error instanceof Error) {
+      // Re-throw a user-friendly error message to be displayed in the UI
+      throw new Error(error.message);
+    }
+    throw new Error("An unknown error occurred while fetching articles.");
+  }
 };
