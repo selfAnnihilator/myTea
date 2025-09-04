@@ -24,10 +24,10 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
       </div>
       <div className="p-6 text-white">
         <span className="text-sm font-semibold text-gray-300">{article.publisher}</span>
-        <h3 className="text-2xl font-bold mt-2 mb-3 leading-tight group-hover:text-gray-200">
+        <h3 className="text-2xl font-bold mt-2 mb-3 leading-tight group-hover:text-gray-200 font-display h-24 line-clamp-3">
           {article.title}
         </h3>
-        <p className="text-gray-200 font-light line-clamp-3">{article.overview}</p>
+        <p className="text-gray-200 font-light line-clamp-3 h-20">{article.overview}</p>
       </div>
     </a>
   );

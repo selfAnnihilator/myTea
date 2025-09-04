@@ -9,7 +9,9 @@ export const useTypingEffect = (text: string, speed: number = 100) => {
     setDisplayedText(''); // Reset on text change
     const typingInterval = setInterval(() => {
       if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
+        // Use substring which is more robust than appending to previous state.
+        // This prevents race conditions that can cause duplicated characters.
+        setDisplayedText(text.substring(0, i + 1));
         i++;
       } else {
         clearInterval(typingInterval);

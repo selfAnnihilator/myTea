@@ -160,6 +160,13 @@ const Navbar: React.FC<NavbarProps> = ({
       tl.reverse();
     }
   };
+  
+  const handleCtaClick = () => {
+    const articlesSection = document.getElementById('articles');
+    if (articlesSection) {
+      articlesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const setCardRef = (i: number) => (el: HTMLDivElement | null) => {
     if (el) cardsRef.current[i] = el;
@@ -190,6 +197,7 @@ const Navbar: React.FC<NavbarProps> = ({
             type="button"
             className="card-nav-cta-button"
             style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
+            onClick={handleCtaClick}
           >
             Get Started
           </button>
@@ -203,7 +211,7 @@ const Navbar: React.FC<NavbarProps> = ({
               ref={setCardRef(idx)}
               style={{ backgroundColor: item.bgColor, color: item.textColor }}
             >
-              <div className="nav-card-label">{item.label}</div>
+              <div className="nav-card-label font-display">{item.label}</div>
               <div className="nav-card-links">
                 {item.links?.map((lnk, i) => (
                   <a key={`${lnk.label}-${i}`} className="nav-card-link" href={lnk.href} aria-label={lnk.ariaLabel}>
