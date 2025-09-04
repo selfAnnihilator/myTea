@@ -1,4 +1,9 @@
-
+/**
+ * @file This service is responsible for fetching news articles.
+ * NOTE: This implementation uses local mock data and does not require an API key.
+ * It simulates a network request to allow for easy local development and testing.
+ * To connect to a real news API, you would replace the logic within `fetchArticles`.
+ */
 import type { Article } from '../types';
 
 const mockArticles: Article[] = [

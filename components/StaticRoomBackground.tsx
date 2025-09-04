@@ -95,12 +95,12 @@ const StaticRoomBackground: React.FC = () => {
            <foreignObject x="1060" y="460" width="480" height="260">
             {/* @ts-ignore */}
              <div xmlns="http://www.w3.org/1999/xhtml" style={{ backgroundColor: '#1a202c', color: '#a0aec0', fontFamily: 'monospace', fontSize: '14px', lineHeight: '1.3', whiteSpace: 'pre', overflow: 'hidden', padding: '10px', height: '100%', boxSizing: 'border-box' }}>
-                <p style={{ margin: 0, color: '#48bb78' }}>[user@host ~]$ <span style={{ color: '#a0aec0' }}>ping api.mytea.dev</span></p>
-                <p style={{ margin: 0 }}>PING api.mytea.dev (192.168.1.1): 56 data bytes</p>
-                <p style={{ margin: 0 }}>64 bytes from 192.168.1.1: icmp_seq=0 ttl=64 time=0.042 ms</p>
-                <p style={{ margin: 0 }}>64 bytes from 192.168.1.1: icmp_seq=1 ttl=64 time=0.051 ms</p>
-                <p style={{ margin: 0, color: '#f56565' }}>--- api.mytea.dev ping statistics ---</p>
-                <p style={{ margin: 0 }}>2 packets transmitted, 2 packets received, 0.0% packet loss</p>
+                <p style={{ margin: 0, color: '#48bb78' }}>[local@mytea ~]$ <span style={{ color: '#a0aec0' }}>echo "Welcome!"</span></p>
+                <p style={{ margin: 0 }}>Welcome!</p>
+                <p style={{ margin: 0, color: '#48bb78' }}>[local@mytea ~]$ <span style={{ color: '#a0aec0' }}>ls -l</span></p>
+                <p style={{ margin: 0 }}>total 1</p>
+                <p style={{ margin: 0 }}>-rw-r--r-- 1 local local 1024 Jan 1 12:00 articles.json</p>
+                <p style={{ margin: 0, color: '#48bb78' }}>[local@mytea ~]$ <span className="cursor-blink">_</span></p>
              </div>
           </foreignObject>
           <rect x="1280" y="730" width="40" height="50" fill="#2d3748" />
