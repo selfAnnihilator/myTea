@@ -1,7 +1,5 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
-
-// GSAP is loaded from a script tag in index.html, declare it for TypeScript
-declare const gsap: any;
+import gsap from 'gsap';
 
 // Replaced react-icons with an inline SVG to avoid extra dependencies
 const GoArrowUpRight: React.FC<{ className?: string }> = ({ className }) => (
@@ -50,8 +48,7 @@ const Navbar: React.FC<NavbarProps> = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  // Fix: Changed gsap.core.Timeline to any because gsap types are not available.
-  const tlRef = useRef<any | null>(null);
+  const tlRef = useRef<gsap.core.Timeline | null>(null);
 
   const calculateHeight = () => {
     const navEl = navRef.current;
