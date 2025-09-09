@@ -7,6 +7,13 @@
       "config": {
         "includeFiles": ["api/**"]
       }
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
     }
   ],
   "routes": [
@@ -17,6 +24,10 @@
     {
       "src": "/api/news/",
       "dest": "/api/news.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/dist/$1"
     }
   ]
 }
