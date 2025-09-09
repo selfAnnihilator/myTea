@@ -1,8 +1,5 @@
 import cors from 'cors';
 
-// Enable CORS for all routes
-const corsMiddleware = cors();
-
 // The NewsAPI key is stored securely on the server.
 const API_KEY = process.env.NEWS_API_KEY || '8decae36d4654f2b8de11d4253a82f49';
 const NEWS_API_BASE_URL = 'https://newsapi.org/v2/top-headlines';
@@ -52,19 +49,9 @@ async function getArticlesForCategory(category) {
 }
 
 export default async function handler(request, response) {
-  // Apply CORS middleware
-  return new Promise((resolve) => {
-    corsMiddleware(request, response, () => {
-      resolve(handleRequest(request, response));
-    });
-  });
-}
-
-async function handleRequest(request, response) {
   // Only allow GET requests
   if (request.method !== 'GET') {
-    response.status(405).json({ message: 'Method Not Allowed' });
-    return;
+    return response.status(405).json({ message: 'Method Not Allowed' });
   }
 
   try {
@@ -88,9 +75,9 @@ async function handleRequest(request, response) {
     // Shuffle for variety
     const shuffledArticles = uniqueArticles.sort(() => Math.random() - 0.5);
 
-    response.status(200).json(shuffledArticles);
+    return response.status(200).json(shuffledArticles);
   } catch (error) {
     console.error("Failed to fetch news from NewsAPI:", error);
-    response.status(500).json({ message: "The news service is currently unavailable. Please try again later." });
+    return response.status(500).json({ message: "The news service is currently unavailable. Please try again later." });
   }
 }
