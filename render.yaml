@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "services": [
+    {
+      "name": "mytea-frontend",
+      "type": "static",
+      "rootDir": ".",
+      "buildCommand": "npm install && npm run build",
+      "staticPublishPath": "dist",
+      "envVars": [
+        {
+          "key": "GEMINI_API_KEY",
+          "sync": false
+        }
+      ]
+    },
+    {
+      "name": "mytea-backend",
+      "type": "web",
+      "runtime": "node",
+      "rootDir": ".",
+      "buildCommand": "npm install",
+      "startCommand": "node server.ts",
+      "envVars": [
+        {
+          "key": "NODE_ENV",
+          "value": "production"
+        }
+      ],
+      "healthCheckPath": "/api/news"
+    }
+  ]
+}
