@@ -9,10 +9,10 @@ const API_ENDPOINT = '/api/news';
 
 export const fetchArticles = async (): Promise<Article[]> => {
   try {
-    // For development, we need to use the full localhost URL
-    // For production, we'll use the relative path which will be proxied
+    // For development, we need to use the full localhost URL for the API route
+    // For production, we'll use the relative path which will be handled by Vercel
     const url = process.env.NODE_ENV === 'development' 
-      ? `http://localhost:8080${API_ENDPOINT}` 
+      ? `http://localhost:5173${API_ENDPOINT}`  // Vite's default port
       : API_ENDPOINT;
       
     const response = await fetch(url);

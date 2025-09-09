@@ -9,6 +9,11 @@ const PORT = process.env.PORT || 8080;
 // Enable CORS for all routes
 app.use(cors());
 
+// Serve static files from the React app build directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, 'dist')));
+
 // The NewsAPI key is stored securely on the server.
 const API_KEY = '8decae36d4654f2b8de11d4253a82f49';
 const NEWS_API_BASE_URL = 'https://newsapi.org/v2/top-headlines';
@@ -86,6 +91,11 @@ app.get('/api/news', async (req, res) => {
   }
 });
 
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
 app.listen(PORT, () => {
-  console.log(`Backend server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

@@ -23,16 +23,15 @@ A React-based news application that fetches and displays the latest articles fro
 
 This application can be deployed to several platforms. Here are some free and open-source options:
 
-### 1. Render (Free Tier)
+### 1. Vercel (Recommended - Free Tier)
 
 1. Fork this repository to your GitHub account
-2. Create an account at [Render](https://render.com/)
-3. Create a new web service and connect it to your repository
-4. Use the following configuration:
-   - Build command: `npm install && npm run build`
-   - Start command: `node server.ts`
-   - Environment variables:
-     - `NODE_ENV`: production
+2. Create an account at [Vercel](https://vercel.com/)
+3. Create a new project and connect it to your repository
+4. Use the default configuration (Vercel will automatically detect the Vite project)
+5. Deploy!
+
+The frontend will be served statically with no downtime, and the API will be handled through Vercel's serverless functions.
 
 ### 2. Docker Deployment
 
@@ -62,7 +61,7 @@ This project includes a Dockerfile for containerized deployment:
    ```
 5. Start the server:
    ```bash
-   node server.ts
+   node server.js
    ```
 
 The application will be available at `http://localhost:8080`
