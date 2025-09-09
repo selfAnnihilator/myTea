@@ -2,61 +2,26 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import type { Article, Category } from './types';
 
 const app = express();
-const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 8080;
+const PORT = process.env.PORT || 8080;
 
-// Enable CORS for all routes, allowing the frontend (on a different port) to communicate.
+// Enable CORS for all routes
 app.use(cors());
-
-// Serve static files from the React app build directory in production
-if (process.env.NODE_ENV === 'production') {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-  app.use(express.static(path.join(__dirname, 'dist')));
-  
-  // Handle React routing, return all requests to React app
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-  });
-}
-
-// --- Logic from the former api/news.ts ---
 
 // The NewsAPI key is stored securely on the server.
 const API_KEY = '8decae36d4654f2b8de11d4253a82f49';
 const NEWS_API_BASE_URL = 'https://newsapi.org/v2/top-headlines';
 
 // Define the categories to fetch from the API.
-const categories: Category[] = ['Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology', 'Politics'];
-
-interface NewsApiArticle {
-  source: {
-    id: string | null;
-    name: string;
-  };
-  author: string | null;
-  title: string;
-  description: string | null;
-  url: string;
-  urlToImage: string | null;
-  publishedAt: string;
-  content: string | null;
-}
-
-interface NewsApiResponse {
-  status: string;
-  totalResults: number;
-  articles: NewsApiArticle[];
-}
+const categories = ['Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology', 'Politics'];
 
 /**
  * Fetches articles for a single category from NewsAPI.
  * @param category The category to fetch.
  * @returns A promise that resolves to an array of processed articles.
  */
-async function getArticlesForCategory(category: Category): Promise<Article[]> {
+async function getArticlesForCategory(category) {
   const url = `${NEWS_API_BASE_URL}?country=us&category=${category.toLowerCase()}&pageSize=20&apiKey=${API_KEY}`;
 
   try {
@@ -66,7 +31,7 @@ async function getArticlesForCategory(category: Category): Promise<Article[]> {
       return []; // Return empty array on failure for this category
     }
 
-    const data: NewsApiResponse = await response.json();
+    const data = await response.json();
     
     return data.articles
       .map((item) => {
@@ -85,7 +50,7 @@ async function getArticlesForCategory(category: Category): Promise<Article[]> {
           category: category,
         };
       })
-      .filter((article): article is Article => article !== null);
+      .filter((article) => article !== null);
   } catch (error) {
     console.error(`Error fetching articles for ${category}:`, error);
     return [];
@@ -102,7 +67,7 @@ app.get('/api/news', async (req, res) => {
     const allArticles = results.flat();
 
     // Deduplicate articles based on their source URL.
-    const seenUrls = new Set<string>();
+    const seenUrls = new Set();
     const uniqueArticles = allArticles.filter(article => {
       if (seenUrls.has(article.sourceUrl)) {
         return false;
@@ -122,5 +87,5 @@ app.get('/api/news', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Backend server is running on http://localhost:${PORT}`);
+  console.log(`Backend server is running on port ${PORT}`);
 });

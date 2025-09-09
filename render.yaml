@@ -14,7 +14,7 @@
       "runtime": "node",
       "rootDir": ".",
       "buildCommand": "npm install",
-      "startCommand": "node server.ts",
+      "startCommand": "node server.js",
       "envVars": [
         {
           "key": "NODE_ENV",

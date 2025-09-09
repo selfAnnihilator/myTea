@@ -4,12 +4,18 @@
  */
 import type { Article } from '../types';
 
-// The API_ENDPOINT now points to the local Node.js server.
-const API_ENDPOINT = 'http://localhost:8080/api/news';
+// The API_ENDPOINT now points to the relative path (works in production and development)
+const API_ENDPOINT = '/api/news';
 
 export const fetchArticles = async (): Promise<Article[]> => {
   try {
-    const response = await fetch(API_ENDPOINT);
+    // For development, we need to use the full localhost URL
+    // For production, we'll use the relative path which will be proxied
+    const url = process.env.NODE_ENV === 'development' 
+      ? `http://localhost:8080${API_ENDPOINT}` 
+      : API_ENDPOINT;
+      
+    const response = await fetch(url);
     
     // Check if the request was successful.
     if (!response.ok) {
