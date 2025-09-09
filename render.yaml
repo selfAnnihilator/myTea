@@ -6,13 +6,7 @@
       "type": "static",
       "rootDir": ".",
       "buildCommand": "npm install && npm run build",
-      "staticPublishPath": "dist",
-      "envVars": [
-        {
-          "key": "GEMINI_API_KEY",
-          "sync": false
-        }
-      ]
+      "staticPublishPath": "dist"
     },
     {
       "name": "mytea-backend",

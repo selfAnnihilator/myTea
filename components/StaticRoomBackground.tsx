@@ -79,11 +79,11 @@ const StaticRoomBackground: React.FC = () => {
             <div xmlns="http://www.w3.org/1999/xhtml" style={{ backgroundColor: '#1a202c', color: '#4ae1a0', fontFamily: 'monospace', fontSize: '12px', lineHeight: '1.2', whiteSpace: 'pre', overflow: 'hidden', padding: '10px', height: '100%', boxSizing: 'border-box' }}>
               <p style={{ margin: 0, color: '#63b3ed' }}>{'import React from "react";'}</p>
               <p style={{ margin: 0 }}>{' '}</p>
-              <p style={{ margin: 0 }}><span style={{ color: '#f6ad55' }}>const</span> <span style={{ color: '#9f7aea' }}>Component</span> = () => (</p>
-              <p style={{ margin: 0, paddingLeft: '1em' }}><span style={{ color: '#f6ad55' }}>{'<'}</span><span style={{ color: '#48bb78' }}>div</span><span style={{ color: '#f6ad55' }}>{'>'}</span></p>
+              <p style={{ margin: 0 }}><span style={{ color: '#f6ad55' }}>const</span> <span style={{ color: '#9f7aea' }}>Component</span> = () {'=>'} {'{'}</p>
+              <p style={{ margin: 0, paddingLeft: '1em' }}><span style={{ color: '#f6ad55' }}>&lt;</span><span style={{ color: '#48bb78' }}>div</span><span style={{ color: '#f6ad55' }}>&gt;</span></p>
               <p style={{ margin: 0, paddingLeft: '2em' }}>Hello, World!</p>
-              <p style={{ margin: 0, paddingLeft: '1em' }}><span style={{ color: '#f6ad55' }}>{'</'}</span><span style={{ color: '#48bb78' }}>div</span><span style={{ color: '#f6ad55' }}>{'>'}</span></p>
-              <p style={{ margin: 0 }}>);</p>
+              <p style={{ margin: 0, paddingLeft: '1em' }}><span style={{ color: '#f6ad55' }}>&lt;/</span><span style={{ color: '#48bb78' }}>div</span><span style={{ color: '#f6ad55' }}>&gt;</span></p>
+              <p style={{ margin: 0 }}>{'}'};</p>
             </div>
           </foreignObject>
           <rect x="780" y="730" width="40" height="50" fill="#2d3748" />
