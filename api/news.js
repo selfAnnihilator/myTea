@@ -4,7 +4,7 @@ import cors from 'cors';
 const corsMiddleware = cors();
 
 // The NewsAPI key is stored securely on the server.
-const API_KEY = '8decae36d4654f2b8de11d4253a82f49';
+const API_KEY = process.env.NEWS_API_KEY || '8decae36d4654f2b8de11d4253a82f49';
 const NEWS_API_BASE_URL = 'https://newsapi.org/v2/top-headlines';
 
 // Define the categories to fetch from the API.
