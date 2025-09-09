@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 import type { Article, Category } from './types';
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 8080;
 
 // Enable CORS for all routes, allowing the frontend (on a different port) to communicate.
 app.use(cors());
