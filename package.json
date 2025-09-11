@@ -10,7 +10,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@vercel/node": "^5.3.21",
+    "@vercel/node": "^2.3.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "gsap": "^3.13.0",
