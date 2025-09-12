@@ -14,10 +14,10 @@ RUN npm ci
 COPY . .
 
 # Expose the port the app runs on
-EXPOSE 8080
+EXPOSE 4173
 
 # Build the frontend
 RUN npm run build
 
 # Start the backend server
-CMD ["node", "server.js"]
+CMD ["npm", "start"]

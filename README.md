@@ -136,7 +136,7 @@ The application implements comprehensive error handling strategies:
 docker build -t mytea .
 
 # Run the container with environment variable
-docker run -p 8080:8080 -e NEWS_API_KEY=your_actual_api_key_here mytea
+docker run -p 4173:4173 -e NEWS_API_KEY=your_actual_api_key_here mytea
 ```
 
 ### Self-hosted
@@ -160,7 +160,7 @@ docker run -p 8080:8080 -e NEWS_API_KEY=your_actual_api_key_here mytea
    npm start
    ```
 
-The application will be available at `http://localhost:8080`
+The application will be available at `http://localhost:4173`
 
 ## 📁 Project Structure
 
