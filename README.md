@@ -191,6 +191,36 @@ Contributions are what make the open source community such an amazing place to l
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+## 🧪 Testing
+
+This project includes unit tests using Jest. Tests are organized in `__tests__` directories alongside the code they test.
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+```
+
+### Test Structure
+
+- `__tests__/` - Basic tests
+- `api/__tests__/` - API endpoint tests
+- `components/__tests__/` - React component tests
+- `services/__tests__/` - Service layer tests
+- `utils/__tests__/` - Utility function tests
+
+### Test Coverage
+
+Tests cover:
+- Custom error classes
+- API endpoint validation
+- Basic component rendering
+- Service function behavior
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
