@@ -9,7 +9,7 @@ const categories = ['Business', 'Entertainment', 'Health', 'Science', 'Sports', 
 
 // Validate that the API key is present
 if (!API_KEY) {
-  console.error('NEWS_API_KEY environment variable is not set');
+  console.error('NEWS_API_KEY environment variable is not set. Please add it in your Vercel project settings.');
 }
 
 interface NewsApiArticle {
@@ -76,7 +76,7 @@ async function fetchWithRetry(url: string, retries: number = 3): Promise<Respons
 async function getArticlesForCategory(category: string): Promise<Article[]> {
   // Check if API key is available
   if (!API_KEY) {
-    console.error('NEWS_API_KEY environment variable is not set');
+    console.error('NEWS_API_KEY environment variable is not set. Please add it in your Vercel project settings.');
     return [];
   }
 
@@ -125,7 +125,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
   // Check if API key is available
   if (!API_KEY) {
     return response.status(500).json({ 
-      message: "Server configuration error. Please contact the administrator." 
+      message: "Server configuration error. Please add the NEWS_API_KEY environment variable in your Vercel project settings." 
     });
   }
 

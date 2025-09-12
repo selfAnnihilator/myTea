@@ -20,4 +20,4 @@ EXPOSE 8080
 RUN npm run build
 
 # Start the backend server
-CMD ["node", "server.ts"]
+CMD ["node", "server.js"]

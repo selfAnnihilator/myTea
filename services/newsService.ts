@@ -61,7 +61,7 @@ export const fetchArticles = async (): Promise<Article[]> => {
     // For development, we need to use the full localhost URL for the API route
     // For production, we'll use the relative path which will be handled by Vercel
     const url = process.env.NODE_ENV === 'development' 
-      ? `http://localhost:5173${API_ENDPOINT}`  // Vite's default port
+      ? `http://localhost:3000${API_ENDPOINT}`  // Vercel's default port for API routes
       : API_ENDPOINT;
       
     const response = await fetchWithRetry(url);

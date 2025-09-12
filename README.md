@@ -71,6 +71,32 @@ npm run preview
 yarn preview
 ```
 
+### Running in Production
+
+```bash
+# Build the frontend first
+npm run build
+
+# Start the production server
+npm start
+```
+
+### Building for Production
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+### Preview Production Build
+
+```bash
+npm run preview
+# or
+yarn preview
+```
+
 ## 🛠️ Technologies Used
 
 - **Frontend**: React 19, TypeScript, Tailwind CSS
