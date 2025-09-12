@@ -40,14 +40,19 @@ A modern, visually appealing news aggregator that serves fresh articles and stor
    yarn install
    ```
 
-3. Start the development server:
+3. Create a `.env` file in the root directory with your NewsAPI key:
+   ```env
+   NEWS_API_KEY=your_actual_api_key_here
+   ```
+
+4. Start the development server:
    ```bash
    npm run dev
    # or
    yarn dev
    ```
 
-4. Open your browser and visit `http://localhost:5173`
+5. Open your browser and visit `http://localhost:5173`
 
 ### Building for Production
 
@@ -81,7 +86,10 @@ yarn preview
 1. Fork this repository to your GitHub account
 2. Create an account at [Vercel](https://vercel.com/)
 3. Create a new project and connect it to your repository
-4. Add your `NEWS_API_KEY` as an environment variable in your Vercel project settings
+4. Add your `NEWS_API_KEY` as an environment variable in your Vercel project settings:
+   - Go to your project settings
+   - Navigate to "Environment Variables"
+   - Add a new variable with the key `NEWS_API_KEY` and your actual API key as the value
 5. Deploy!
 
 ### Docker
@@ -90,8 +98,8 @@ yarn preview
 # Build the Docker image
 docker build -t mytea .
 
-# Run the container
-docker run -p 8080:8080 mytea
+# Run the container with environment variable
+docker run -p 8080:8080 -e NEWS_API_KEY=your_actual_api_key_here mytea
 ```
 
 ### Self-hosted
@@ -102,11 +110,15 @@ docker run -p 8080:8080 mytea
    ```bash
    npm install
    ```
-4. Build the frontend:
+4. Set the environment variable for the NewsAPI key:
+   ```bash
+   export NEWS_API_KEY=your_actual_api_key_here
+   ```
+5. Build the frontend:
    ```bash
    npm run build
    ```
-5. Start the server:
+6. Start the server:
    ```bash
    npm start
    ```

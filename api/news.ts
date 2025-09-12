@@ -1,11 +1,16 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
 // The NewsAPI key is stored securely on the server.
-const API_KEY = process.env.NEWS_API_KEY || '8decae36d4654f2b8de11d4253a82f49';
+const API_KEY = process.env.NEWS_API_KEY;
 const NEWS_API_BASE_URL = 'https://newsapi.org/v2/top-headlines';
 
 // Define the categories to fetch from the API.
 const categories = ['Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology', 'Politics'];
+
+// Validate that the API key is present
+if (!API_KEY) {
+  console.error('NEWS_API_KEY environment variable is not set');
+}
 
 interface NewsApiArticle {
   source: {
@@ -43,6 +48,12 @@ interface Article {
  * @returns A promise that resolves to an array of processed articles.
  */
 async function getArticlesForCategory(category: string): Promise<Article[]> {
+  // Check if API key is available
+  if (!API_KEY) {
+    console.error('NEWS_API_KEY environment variable is not set');
+    return [];
+  }
+
   const url = `${NEWS_API_BASE_URL}?country=us&category=${category.toLowerCase()}&pageSize=20&apiKey=${API_KEY}`;
 
   try {
@@ -82,6 +93,13 @@ export default async function handler(request: VercelRequest, response: VercelRe
   // Only allow GET requests
   if (request.method !== 'GET') {
     return response.status(405).json({ message: 'Method Not Allowed' });
+  }
+
+  // Check if API key is available
+  if (!API_KEY) {
+    return response.status(500).json({ 
+      message: "Server configuration error. Please contact the administrator." 
+    });
   }
 
   try {
