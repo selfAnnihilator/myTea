@@ -42,6 +42,32 @@ interface Article {
   category: string;
 }
 
+// Add a retry function for API calls
+async function fetchWithRetry(url: string, retries: number = 3): Promise<Response> {
+  let lastError: Error;
+  
+  for (let i = 0; i <= retries; i++) {
+    try {
+      const response = await fetch(url);
+      // If response is ok or it's a client error (4xx), don't retry
+      if (response.ok || (response.status >= 400 && response.status < 500)) {
+        return response;
+      }
+      // For server errors (5xx), we might retry
+      if (i < retries) {
+        await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1))); // Exponential backoff
+      }
+    } catch (error) {
+      lastError = error as Error;
+      if (i < retries) {
+        await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1))); // Exponential backoff
+      }
+    }
+  }
+  
+  throw lastError || new Error('Failed to fetch after retries');
+}
+
 /**
  * Fetches articles for a single category from NewsAPI.
  * @param category The category to fetch.
@@ -57,10 +83,11 @@ async function getArticlesForCategory(category: string): Promise<Article[]> {
   const url = `${NEWS_API_BASE_URL}?country=us&category=${category.toLowerCase()}&pageSize=20&apiKey=${API_KEY}`;
 
   try {
-    const response = await fetch(url);
+    const response = await fetchWithRetry(url);
     if (!response.ok) {
       console.error(`NewsAPI request for ${category} failed with status ${response.status}`);
-      return []; // Return empty array on failure for this category
+      // Return empty array on failure for this category, but log the error
+      return [];
     }
 
     const data: NewsApiResponse = await response.json();

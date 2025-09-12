@@ -6,6 +6,7 @@ import ArticleCard from './ArticleCard';
 import AnimatedSection from './AnimatedSection';
 import LoadingSpinner from './LoadingSpinner';
 import { useOnScreen } from '../hooks/useOnScreen';
+import { NetworkError, ApiError } from '../utils/errors';
 
 const ARTICLES_PER_LOAD = 6; // Corresponds to two rows of three articles
 
@@ -31,10 +32,22 @@ const ArticlesSection: React.FC = () => {
           setArticles(fetchedArticles);
         } catch (err) {
           console.error("Failed to fetch articles:", err);
-          if (err instanceof Error) {
+          
+          // Provide user-friendly error messages based on error type
+          if (err instanceof NetworkError) {
+            setError("Network connection failed. Please check your internet connection and try again.");
+          } else if (err instanceof ApiError) {
+            if (err.status === 404) {
+              setError("The requested resource was not found.");
+            } else if (err.status === 500) {
+              setError("Our servers are currently experiencing issues. Please try again later.");
+            } else {
+              setError(`Service error: ${err.message}`);
+            }
+          } else if (err instanceof Error) {
             setError(err.message);
           } else {
-            setError("An unknown error occurred while fetching articles.");
+            setError("An unexpected error occurred while fetching articles. Please try again later.");
           }
         } finally {
           setLoading(false);
@@ -102,6 +115,15 @@ const ArticlesSection: React.FC = () => {
             <AnimatedSection className="text-center py-16 bg-red-900/20 rounded-lg">
                 <p className="text-2xl text-red-300 font-semibold">Could Not Load News</p>
                 <p className="text-lg text-red-300/80 mt-2">{error}</p>
+                <button
+                  onClick={() => {
+                    setHasFetched(false);
+                    setError(null);
+                  }}
+                  className="mt-4 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-md transition-colors"
+                >
+                  Try Again
+                </button>
             </AnimatedSection>
         )}
         

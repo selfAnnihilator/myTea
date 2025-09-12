@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import ArticlesSection from './components/ArticlesSection';
 import StaticRoomBackground from './components/StaticRoomBackground';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -63,29 +64,31 @@ const App: React.FC = () => {
   ];
 
   return (
-    <div 
-      className="font-sans antialiased text-white selection:bg-teal-300 selection:text-black min-h-screen bg-transparent isolate"
-    >
-      <StaticRoomBackground />
+    <ErrorBoundary>
+      <div 
+        className="font-sans antialiased text-white selection:bg-teal-300 selection:text-black min-h-screen bg-transparent isolate"
+      >
+        <StaticRoomBackground />
 
-      <main>
-        <Navbar
-          logo={logoSvg}
-          logoAlt="MyTea Logo"
-          items={navItems}
-          baseColor="#fff"
-          menuColor="#000"
-          buttonBgColor="#111"
-          buttonTextColor="#fff"
-          ease="power3.out"
-        />
-        <HeroSection />
-        <ArticlesSection />
-        <footer className="text-center py-8 text-white/50">
-          <p>&copy; {new Date().getFullYear()} MyTea. All Rights Reserved.</p>
-        </footer>
-      </main>
-    </div>
+        <main>
+          <Navbar
+            logo={logoSvg}
+            logoAlt="MyTea Logo"
+            items={navItems}
+            baseColor="#fff"
+            menuColor="#000"
+            buttonBgColor="#111"
+            buttonTextColor="#fff"
+            ease="power3.out"
+          />
+          <HeroSection />
+          <ArticlesSection />
+          <footer className="text-center py-8 text-white/50">
+            <p>&copy; {new Date().getFullYear()} MyTea. All Rights Reserved.</p>
+          </footer>
+        </main>
+      </div>
+    </ErrorBoundary>
   );
 };
 

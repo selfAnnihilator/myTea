@@ -17,6 +17,7 @@ A modern, visually appealing news aggregator that serves fresh articles and stor
 - **Modern UI**: Card-based navigation with sleek animations
 - **Typing Effects**: Dynamic text animations in hero section
 - **Performance Optimized**: Lazy loading and efficient data fetching
+- **Robust Error Handling**: Retry mechanisms and user-friendly error messages
 
 ## 🚀 Getting Started
 
@@ -78,6 +79,16 @@ yarn preview
 - **Backend**: Vercel Serverless Functions
 - **API**: NewsAPI
 - **Deployment**: Vercel, Docker
+
+## 🛡️ Error Handling
+
+The application implements comprehensive error handling strategies:
+
+- **Network Resilience**: Automatic retry mechanisms for failed API requests
+- **User-Friendly Messages**: Clear, actionable error messages for different failure scenarios
+- **Graceful Degradation**: Components continue to function even when non-critical errors occur
+- **Error Boundaries**: Prevents application crashes from unhandled exceptions
+- **Type Safety**: TypeScript ensures fewer runtime errors through compile-time checking
 
 ## 📦 Deployment Options
 
