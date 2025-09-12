@@ -193,7 +193,7 @@ Contributions are what make the open source community such an amazing place to l
 
 ## 🧪 Testing
 
-This project includes unit tests using Jest. Tests are organized in `__tests__` directories alongside the code they test.
+This project includes comprehensive unit tests using Jest and React Testing Library. Tests are organized in `__tests__` directories alongside the code they test.
 
 ### Running Tests
 
@@ -210,6 +210,7 @@ npm run test:watch
 - `__tests__/` - Basic tests
 - `api/__tests__/` - API endpoint tests
 - `components/__tests__/` - React component tests
+- `hooks/__tests__/` - React hook tests
 - `services/__tests__/` - Service layer tests
 - `utils/__tests__/` - Utility function tests
 
@@ -218,8 +219,18 @@ npm run test:watch
 Tests cover:
 - Custom error classes
 - API endpoint validation
-- Basic component rendering
+- React component rendering and behavior
+- React hooks functionality
 - Service function behavior
+- News fetching and error handling
+- Utility functions
+
+### Test Technologies
+
+- **Jest** - JavaScript testing framework
+- **React Testing Library** - React component testing utilities
+- **jsdom** - DOM environment for testing
+- **Mocking** - Network requests, browser APIs, and dependencies
 
 ## 📄 License
 

@@ -52,6 +52,7 @@ const CustomCursor: React.FC = () => {
         backdropFilter: isHovering ? 'blur(2px)' : 'none',
       }}
       aria-hidden="true"
+      data-testid="custom-cursor"
     />
   );
 };

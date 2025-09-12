@@ -3,7 +3,7 @@
  * The backend handles the communication with the external NewsAPI, keeping API keys secure.
  */
 import type { Article } from '../types';
-import { NetworkError, ApiError } from '../utils/errors';
+import { NetworkError, ApiError } from '../utils/errors.ts';
 
 // The API_ENDPOINT now points to the relative path (works in production and development)
 const API_ENDPOINT = '/api/news';

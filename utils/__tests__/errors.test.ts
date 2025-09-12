@@ -1,5 +1,5 @@
 // utils/__tests__/errors.test.ts
-import { NetworkError, ApiError, ValidationError } from '../errors';
+import { NetworkError, ApiError, ValidationError } from '../errors.ts';
 
 describe('Custom Error Classes', () => {
   test('NetworkError should be instance of Error', () => {

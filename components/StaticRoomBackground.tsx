@@ -24,7 +24,7 @@ const StaticRoomBackground: React.FC = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
+    <div className="fixed inset-0 -z-10 overflow-hidden" aria-hidden="true" data-testid="static-room-background">
       <svg
         className="absolute left-0 top-0 h-full w-full object-cover transition-transform duration-300 ease-out blur-sm"
         xmlns="http://www.w3.org/2000/svg"

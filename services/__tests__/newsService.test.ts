@@ -1,6 +1,9 @@
 // services/__tests__/newsService.test.ts
+/**
+ * @jest-environment jsdom
+ */
 import { fetchArticles } from '../newsService';
-import { NetworkError, ApiError } from '../../utils/errors';
+import { NetworkError, ApiError } from '../../utils/errors.ts';
 
 // Mock the fetch function
 global.fetch = jest.fn();

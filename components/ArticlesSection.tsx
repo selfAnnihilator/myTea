@@ -6,7 +6,7 @@ import ArticleCard from './ArticleCard';
 import AnimatedSection from './AnimatedSection';
 import LoadingSpinner from './LoadingSpinner';
 import { useOnScreen } from '../hooks/useOnScreen';
-import { NetworkError, ApiError } from '../utils/errors';
+import { NetworkError, ApiError } from '../utils/errors.ts';
 
 const ARTICLES_PER_LOAD = 6; // Corresponds to two rows of three articles
 
@@ -83,7 +83,7 @@ const ArticlesSection: React.FC = () => {
 
 
   return (
-    <section ref={sectionRef} id="articles" className="w-full min-h-screen py-24 px-4 sm:px-6 lg:px-8">
+    <section ref={sectionRef} id="articles" className="w-full min-h-screen py-24 px-4 sm:px-6 lg:px-8" data-testid="articles-section">
       <div className="max-w-7xl mx-auto">
         <AnimatedSection className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black text-white font-display">Latest Articles</h2>
