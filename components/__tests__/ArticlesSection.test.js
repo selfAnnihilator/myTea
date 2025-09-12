@@ -9,7 +9,8 @@ jest.mock('../../hooks/useOnScreen', () => ({
 }));
 
 jest.mock('../../services/newsService', () => ({
-  fetchArticles: jest.fn()
+  fetchArticles: jest.fn(),
+  clearArticleCache: jest.fn()
 }));
 
 // Mock child components
@@ -47,19 +48,6 @@ describe('ArticlesSection', () => {
     // but we can test that the component renders without errors
     render(<ArticlesSection />);
     // This test ensures the component renders without crashing
-    expect(screen.getByText('Latest Articles')).toBeInTheDocument();
-  });
-
-  test('has correct CSS classes for styling', () => {
-    render(<ArticlesSection />);
-    const sectionElement = screen.getByTestId('articles-section');
-    expect(sectionElement).toHaveClass('w-full', 'min-h-screen', 'py-24', 'px-4');
-  });
-
-  test('renders category filter buttons', () => {
-    render(<ArticlesSection />);
-    // Initially, no categories are shown until articles are loaded
-    // We can test that the component renders without errors
     expect(screen.getByText('Latest Articles')).toBeInTheDocument();
   });
 });

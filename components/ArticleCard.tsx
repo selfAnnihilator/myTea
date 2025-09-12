@@ -1,12 +1,22 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import type { Article } from '../types';
+import { optimizeImageUrl, getPlaceholderImage } from '../utils/imageOptimizer';
 
 interface ArticleCardProps {
   article: Article;
 }
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
+  const [imageUrl, setImageUrl] = useState<string>(getPlaceholderImage(600, 400));
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    // Optimize the image URL
+    const optimizedUrl = optimizeImageUrl(article.imageUrl, 600, 400, 75);
+    setImageUrl(optimizedUrl);
+  }, [article.imageUrl]);
+
   return (
     <a
       href={article.sourceUrl}
@@ -16,9 +26,15 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
     >
       <div className="relative">
         <img
-          src={article.imageUrl}
+          src={imageUrl}
           alt={article.title}
-          className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+          className={`w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300 ${imageLoaded ? '' : 'blur-sm'}`}
+          onLoad={() => setImageLoaded(true)}
+          onError={() => {
+            // Fallback to placeholder if image fails to load
+            setImageUrl(getPlaceholderImage(600, 400));
+            setImageLoaded(true);
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
       </div>

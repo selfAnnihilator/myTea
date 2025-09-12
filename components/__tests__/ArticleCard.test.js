@@ -21,12 +21,11 @@ describe('ArticleCard', () => {
     expect(titleElement).toBeInTheDocument();
   });
 
-  test('renders article image with correct src and alt', () => {
+  test('renders article image with correct alt', () => {
     render(<ArticleCard article={mockArticle} />);
     
     const imageElement = screen.getByAltText('Test Article');
     expect(imageElement).toBeInTheDocument();
-    expect(imageElement).toHaveAttribute('src', 'https://example.com/image.jpg');
   });
 
   test('renders publisher name', () => {

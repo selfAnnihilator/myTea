@@ -4,6 +4,7 @@
  */
 import type { Article } from '../types';
 import { NetworkError, ApiError } from '../utils/errors.ts';
+import { articleCache, ARTICLE_CACHE_KEY } from '../utils/cache.ts';
 
 // The API_ENDPOINT now points to the relative path (works in production and development)
 const API_ENDPOINT = '/api/news';
@@ -11,6 +12,7 @@ const API_ENDPOINT = '/api/news';
 // Retry configuration
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1000; // 1 second
+const CACHE_TTL = 300000; // 5 minutes
 
 /**
  * Delays execution for the specified number of milliseconds
@@ -58,6 +60,13 @@ async function fetchWithRetry(url: string, retries: number = 0): Promise<Respons
 
 export const fetchArticles = async (): Promise<Article[]> => {
   try {
+    // Check cache first
+    const cachedArticles = articleCache.get(ARTICLE_CACHE_KEY);
+    if (cachedArticles) {
+      console.log('Returning cached articles');
+      return cachedArticles;
+    }
+    
     // For development, we need to use the full localhost URL for the API route
     // For production, we'll use the relative path which will be handled by Vercel
     const url = process.env.NODE_ENV === 'development' 
@@ -72,6 +81,10 @@ export const fetchArticles = async (): Promise<Article[]> => {
     
     try {
         const articles: Article[] = JSON.parse(responseText);
+        
+        // Cache the articles
+        articleCache.set(ARTICLE_CACHE_KEY, articles, CACHE_TTL);
+        
         return articles;
     } catch (parseError) {
         console.error("Failed to parse JSON response:", responseText);
@@ -88,4 +101,9 @@ export const fetchArticles = async (): Promise<Article[]> => {
     
     throw new Error("An unknown error occurred while fetching articles.");
   }
+};
+
+// Function to clear the cache
+export const clearArticleCache = (): void => {
+  articleCache.delete(ARTICLE_CACHE_KEY);
 };

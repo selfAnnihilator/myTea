@@ -12,6 +12,10 @@ if (!API_KEY) {
   console.error('NEWS_API_KEY environment variable is not set. Please add it in your Vercel project settings.');
 }
 
+// Simple in-memory cache
+const cache: { [key: string]: { data: any; timestamp: number } } = {};
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+
 interface NewsApiArticle {
   source: {
     id: string | null;
@@ -129,6 +133,15 @@ export default async function handler(request: VercelRequest, response: VercelRe
     });
   }
 
+  // Check cache first
+  const cacheKey = 'news_articles';
+  const cached = cache[cacheKey];
+  
+  if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+    console.log('Returning cached articles from server');
+    return response.status(200).json(cached.data);
+  }
+
   try {
     // Fetch all categories concurrently for performance.
     const promises = categories.map(getArticlesForCategory);
@@ -149,6 +162,12 @@ export default async function handler(request: VercelRequest, response: VercelRe
 
     // Shuffle for variety
     const shuffledArticles = uniqueArticles.sort(() => Math.random() - 0.5);
+    
+    // Cache the results
+    cache[cacheKey] = {
+      data: shuffledArticles,
+      timestamp: Date.now()
+    };
 
     return response.status(200).json(shuffledArticles);
   } catch (error) {

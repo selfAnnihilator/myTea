@@ -162,6 +162,28 @@ docker run -p 4173:4173 -e NEWS_API_KEY=your_actual_api_key_here mytea
 
 The application will be available at `http://localhost:4173`
 
+## ⚡ Performance Optimizations
+
+The application includes several performance optimizations to ensure fast loading and smooth user experience:
+
+### Caching Strategies
+- **Client-side caching**: Articles are cached in the browser for 5 minutes to reduce API calls
+- **Server-side caching**: API responses are cached on the server for 5 minutes to reduce external API calls
+- **Cache invalidation**: Manual refresh button allows users to clear cache and fetch fresh data
+
+### Image Optimization
+- **Dynamic image resizing**: Images are automatically resized based on display requirements
+- **Quality optimization**: Image quality is adjusted for optimal balance between quality and performance
+- **Lazy loading**: Images are loaded only when they come into view
+- **Placeholder images**: SVG placeholders are shown while images are loading
+- **Error fallbacks**: Graceful degradation when images fail to load
+
+### Code Optimizations
+- **Bundle splitting**: Code is split into smaller chunks for faster initial loading
+- **Tree shaking**: Unused code is removed from the final bundle
+- **Minification**: Code is minified for smaller bundle sizes
+- **Gzip compression**: Assets are compressed for faster network transfer
+
 ## 📁 Project Structure
 
 ```

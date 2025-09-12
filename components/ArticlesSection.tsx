@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { fetchArticles } from '../services/newsService';
+import { fetchArticles, clearArticleCache } from '../services/newsService';
 import type { Article, Category } from '../types';
 import ArticleCard from './ArticleCard';
 import AnimatedSection from './AnimatedSection';
@@ -81,9 +81,40 @@ const ArticlesSection: React.FC = () => {
     return filteredArticles.slice(0, visibleCount);
   }, [filteredArticles, visibleCount]);
 
+  const handleRefresh = async () => {
+    setLoading(true);
+    setError(null);
+    clearArticleCache();
+    
+    try {
+      const fetchedArticles = await fetchArticles();
+      setArticles(fetchedArticles);
+    } catch (err) {
+      console.error("Failed to fetch articles:", err);
+      
+      // Provide user-friendly error messages based on error type
+      if (err instanceof NetworkError) {
+        setError("Network connection failed. Please check your internet connection and try again.");
+      } else if (err instanceof ApiError) {
+        if (err.status === 404) {
+          setError("The requested resource was not found.");
+        } else if (err.status === 500) {
+          setError("Our servers are currently experiencing issues. Please try again later.");
+        } else {
+          setError(`Service error: ${err.message}`);
+        }
+      } else if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error occurred while fetching articles. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <section ref={sectionRef} id="articles" className="w-full min-h-screen py-24 px-4 sm:px-6 lg:px-8" data-testid="articles-section">
+    <section ref={sectionRef} id="articles" className="w-full min-h-screen py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <AnimatedSection className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black text-white font-display">Latest Articles</h2>
@@ -116,10 +147,7 @@ const ArticlesSection: React.FC = () => {
                 <p className="text-2xl text-red-300 font-semibold">Could Not Load News</p>
                 <p className="text-lg text-red-300/80 mt-2">{error}</p>
                 <button
-                  onClick={() => {
-                    setHasFetched(false);
-                    setError(null);
-                  }}
+                  onClick={handleRefresh}
                   className="mt-4 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-md transition-colors"
                 >
                   Try Again
@@ -155,6 +183,17 @@ const ArticlesSection: React.FC = () => {
             <AnimatedSection className="text-center py-16">
                 <p className="text-xl text-gray-400">No articles found in this category.</p>
             </AnimatedSection>
+        )}
+        
+        {!loading && !error && articles.length > 0 && (
+          <AnimatedSection className="text-center mt-8">
+            <button
+              onClick={handleRefresh}
+              className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-md transition-colors text-sm"
+            >
+              Refresh News
+            </button>
+          </AnimatedSection>
         )}
       </div>
     </section>

@@ -1,15 +1,32 @@
 // services/__tests__/newsService.test.js
+// services/__tests__/newsService.test.js
 /**
  * @jest-environment jsdom
  */
-import { fetchArticles } from '../newsService';
+import { fetchArticles, clearArticleCache } from '../newsService';
+import { NetworkError, ApiError } from '../../utils/errors.ts';
 
 // Mock the fetch function
 global.fetch = jest.fn();
 
+// Mock the cache
+jest.mock('../../utils/cache.ts', () => {
+  const actualCache = jest.requireActual('../../utils/cache.ts');
+  return {
+    ...actualCache,
+    articleCache: {
+      get: jest.fn(),
+      set: jest.fn(),
+      delete: jest.fn()
+    },
+    ARTICLE_CACHE_KEY: 'articles'
+  };
+});
+
 describe('newsService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    clearArticleCache();
   });
 
   test('fetchArticles calls the correct URL in development', async () => {
