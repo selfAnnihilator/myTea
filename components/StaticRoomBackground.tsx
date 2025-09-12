@@ -100,7 +100,7 @@ const StaticRoomBackground: React.FC = () => {
                 <p style={{ margin: 0, color: '#48bb78' }}>[local@mytea ~]$ <span style={{ color: '#a0aec0' }}>ls -l</span></p>
                 <p style={{ margin: 0 }}>total 1</p>
                 <p style={{ margin: 0 }}>-rw-r--r-- 1 local local 1024 Jan 1 12:00 articles.json</p>
-                <p style={{ margin: 0, color: '#48bb78' }}>[local@mytea ~]$ <span className="cursor-blink">_</span></p>
+                <p style={{ margin: 0, color: '#48bb78' }}>[local@mytea ~]$ <span>_</span></p>
              </div>
           </foreignObject>
           <rect x="1280" y="730" width="40" height="50" fill="#2d3748" />

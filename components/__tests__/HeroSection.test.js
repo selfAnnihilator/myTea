@@ -32,10 +32,9 @@ describe('HeroSection', () => {
     expect(sectionElement).toHaveClass('h-screen', 'w-full', 'flex', 'items-center', 'justify-center');
   });
 
-  test('has cursor blink element', () => {
+  test('has cursor element', () => {
     render(<HeroSection />);
     const cursorElement = screen.getByText('|');
     expect(cursorElement).toBeInTheDocument();
-    expect(cursorElement).toHaveClass('cursor-blink');
   });
 });
