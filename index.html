@@ -23,16 +23,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-      /* Global loader styles */
-      #global-loader {
-        opacity: 1;
-        transition: opacity 0.5s ease-out;
-      }
-      
-      #global-loader.fade-out {
-        opacity: 0;
-      }
-
       .card-nav-container {
         position: fixed;
         top: 2em;
@@ -246,10 +236,6 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <!-- Global loader that will be removed by the app after a delay -->
-    <div id="global-loader" class="fixed inset-0 bg-gray-900 flex items-center justify-center z-50 transition-opacity duration-500">
-      <div class="text-white text-2xl">Loading MyTea...</div>
-    </div>
     <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
   </body>
