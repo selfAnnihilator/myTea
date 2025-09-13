@@ -1,7 +1,7 @@
 // components/__tests__/LoadingSpinner.test.js
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import LoadingSpinner from '../LoadingSpinner';
+import LoadingSpinner from '../../../src/components/ui/LoadingSpinner';
 
 describe('LoadingSpinner', () => {
   test('renders the loading text', () => {

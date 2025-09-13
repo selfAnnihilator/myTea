@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useOnScreen } from '../hooks/useOnScreen';
+import { useOnScreen } from '../../hooks/useOnScreen';
 
 interface AnimatedSectionProps {
   children: React.ReactNode;

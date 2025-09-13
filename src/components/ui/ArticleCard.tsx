@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import type { Article } from '../types';
-import { optimizeImageUrl, getPlaceholderImage } from '../utils/imageOptimizer';
+import type { Article } from '../../types';
+import { optimizeImageUrl, getPlaceholderImage } from '../../utils/imageOptimizer';
 
 interface ArticleCardProps {
   article: Article;

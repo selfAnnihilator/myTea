@@ -1,28 +1,28 @@
 // components/__tests__/ArticlesSection.test.js
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ArticlesSection from '../ArticlesSection';
+import ArticlesSection from '../../../src/components/sections/ArticlesSection';
 
 // Mock the hooks and services used by ArticlesSection
-jest.mock('../../hooks/useOnScreen', () => ({
+jest.mock('../../../src/hooks/useOnScreen', () => ({
   useOnScreen: () => [false]
 }));
 
-jest.mock('../../services/newsService', () => ({
+jest.mock('../../../src/services/newsService', () => ({
   fetchArticles: jest.fn(),
   clearArticleCache: jest.fn()
 }));
 
 // Mock child components
-jest.mock('../ArticleCard', () => {
+jest.mock('../../../src/components/ui/ArticleCard', () => {
   return ({ article }) => <div data-testid="article-card">{article.title}</div>;
 });
 
-jest.mock('../AnimatedSection', () => {
+jest.mock('../../../src/components/ui/AnimatedSection', () => {
   return ({ children, ...props }) => <div {...props}>{children}</div>;
 });
 
-jest.mock('../LoadingSpinner', () => {
+jest.mock('../../../src/components/ui/LoadingSpinner', () => {
   return () => <div data-testid="loading-spinner">Loading...</div>;
 });
 

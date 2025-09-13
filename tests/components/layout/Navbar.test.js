@@ -1,7 +1,7 @@
 // components/__tests__/Navbar.test.js
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Navbar from '../Navbar';
+import Navbar from '../../../src/components/layout/Navbar';
 
 // Mock the gsap library
 jest.mock('gsap', () => ({

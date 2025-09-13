@@ -3,15 +3,15 @@
 /**
  * @jest-environment jsdom
  */
-import { fetchArticles, clearArticleCache } from '../newsService';
-import { NetworkError, ApiError } from '../../utils/errors.ts';
+import { fetchArticles, clearArticleCache } from '../../src/services/newsService';
+import { NetworkError, ApiError } from '../../src/utils/errors.ts';
 
 // Mock the fetch function
 global.fetch = jest.fn();
 
 // Mock the cache
-jest.mock('../../utils/cache.ts', () => {
-  const actualCache = jest.requireActual('../../utils/cache.ts');
+jest.mock('../../src/utils/cache.ts', () => {
+  const actualCache = jest.requireActual('../../src/utils/cache.ts');
   return {
     ...actualCache,
     articleCache: {

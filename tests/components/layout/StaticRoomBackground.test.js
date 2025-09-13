@@ -1,7 +1,7 @@
 // components/__tests__/StaticRoomBackground.test.js
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import StaticRoomBackground from '../StaticRoomBackground';
+import StaticRoomBackground from '../../../src/components/layout/StaticRoomBackground';
 
 describe('StaticRoomBackground', () => {
   test('renders the background container', () => {

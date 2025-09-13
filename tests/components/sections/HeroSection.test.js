@@ -1,15 +1,15 @@
 // components/__tests__/HeroSection.test.js
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import HeroSection from '../HeroSection';
+import HeroSection from '../../../src/components/sections/HeroSection';
 
 // Mock the useTypingEffect hook
-jest.mock('../../hooks/useTypingEffect', () => ({
+jest.mock('../../../src/hooks/useTypingEffect', () => ({
   useTypingEffect: (text) => text
 }));
 
 // Mock the AnimatedSection component
-jest.mock('../AnimatedSection', () => {
+jest.mock('../../../src/components/ui/AnimatedSection', () => {
   return ({ children, ...props }) => <div {...props}>{children}</div>;
 });
 

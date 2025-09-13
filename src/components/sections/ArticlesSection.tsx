@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { fetchArticles, clearArticleCache } from '../services/newsService';
-import type { Article, Category } from '../types';
-import ArticleCard from './ArticleCard';
-import AnimatedSection from './AnimatedSection';
-import LoadingSpinner from './LoadingSpinner';
-import { useOnScreen } from '../hooks/useOnScreen';
-import { NetworkError, ApiError } from '../utils/errors.ts';
+import { fetchArticles, clearArticleCache } from '../../services/newsService';
+import type { Article, Category } from '../../types';
+import ArticleCard from '../ui/ArticleCard';
+import AnimatedSection from '../ui/AnimatedSection';
+import LoadingSpinner from '../ui/LoadingSpinner';
+import { useOnScreen } from '../../hooks/useOnScreen';
+import { NetworkError, ApiError } from '../../utils/errors.ts';
 
 const ARTICLES_PER_LOAD = 6; // Corresponds to two rows of three articles
 

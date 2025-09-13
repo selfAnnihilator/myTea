@@ -1,10 +1,10 @@
 // components/__tests__/AnimatedSection.test.js
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import AnimatedSection from '../AnimatedSection';
+import AnimatedSection from '../../../src/components/ui/AnimatedSection';
 
 // Mock the useOnScreen hook to avoid IntersectionObserver issues
-jest.mock('../../hooks/useOnScreen', () => ({
+jest.mock('../../../src/hooks/useOnScreen', () => ({
   useOnScreen: () => [true]
 }));
 

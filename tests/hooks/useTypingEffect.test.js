@@ -1,6 +1,6 @@
 // hooks/__tests__/useTypingEffect.test.js
 import { renderHook, act } from '@testing-library/react';
-import { useTypingEffect } from '../useTypingEffect';
+import { useTypingEffect } from '../../src/hooks/useTypingEffect';
 
 // Mock setTimeout and setInterval to control timing in tests
 jest.useFakeTimers();

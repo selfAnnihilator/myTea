@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import Navbar from './components/Navbar';
-import HeroSection from './components/HeroSection';
-import ArticlesSection from './components/ArticlesSection';
-import StaticRoomBackground from './components/StaticRoomBackground';
-import ErrorBoundary from './components/ErrorBoundary';
+import Navbar from './components/layout/Navbar';
+import HeroSection from './components/sections/HeroSection';
+import ArticlesSection from './components/sections/ArticlesSection';
+import StaticRoomBackground from './components/layout/StaticRoomBackground';
+import ErrorBoundary from './components/ui/ErrorBoundary';
 
 const App: React.FC = () => {
   useEffect(() => {

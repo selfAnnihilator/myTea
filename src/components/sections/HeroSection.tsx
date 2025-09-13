@@ -1,6 +1,6 @@
 import React from 'react';
-import { useTypingEffect } from '../hooks/useTypingEffect';
-import AnimatedSection from './AnimatedSection';
+import { useTypingEffect } from '../../hooks/useTypingEffect';
+import AnimatedSection from '../ui/AnimatedSection';
 
 const HeroSection: React.FC = () => {
   const typedTitle = useTypingEffect("Your Daily Brew of News", 100);

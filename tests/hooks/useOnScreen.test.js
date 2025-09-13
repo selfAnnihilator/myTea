@@ -1,6 +1,6 @@
 // hooks/__tests__/useOnScreen.test.js
 import { renderHook } from '@testing-library/react';
-import { useOnScreen } from '../useOnScreen';
+import { useOnScreen } from '../../src/hooks/useOnScreen';
 
 // Mock the IntersectionObserver
 const mockIntersectionObserver = jest.fn();

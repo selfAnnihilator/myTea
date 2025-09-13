@@ -7,6 +7,8 @@ module.exports = {
     '**/?(*.)+(spec|test).+(js|jsx)'
   ],
   moduleNameMapper: {
-    '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
-  }
+    '\\.(css|less|scss|sass)': 'identity-obj-proxy',
+    '^@/(.*)': '<rootDir>/src/$1'
+  },
+  moduleDirectories: ['node_modules', 'src']
 };

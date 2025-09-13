@@ -1,7 +1,7 @@
 // components/__tests__/ArticleCard.test.js
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ArticleCard from '../ArticleCard';
+import ArticleCard from '../../../src/components/ui/ArticleCard';
 
 describe('ArticleCard', () => {
   const mockArticle = {
