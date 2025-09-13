@@ -1,5 +1,5 @@
 // api/__tests__/news.test.ts
-import handler from '../news';
+import handler from '../../api/news';
 
 // Mock environment variables
 process.env.NEWS_API_KEY = 'test-api-key';
@@ -13,11 +13,13 @@ describe('News API Handler', () => {
   });
 
   test('should return 405 for non-GET requests', async () => {
-    const mockRequest = { method: 'POST' };
+    const mockRequest = {
+      method: 'POST'
+    } as any;
     const mockResponse = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn()
-    };
+    } as any;
 
     await handler(mockRequest, mockResponse);
 
@@ -30,11 +32,13 @@ describe('News API Handler', () => {
     const originalApiKey = process.env.NEWS_API_KEY;
     delete process.env.NEWS_API_KEY;
 
-    const mockRequest = { method: 'GET' };
+    const mockRequest = {
+      method: 'GET'
+    } as any;
     const mockResponse = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn()
-    };
+    } as any;
 
     await handler(mockRequest, mockResponse);
 
@@ -70,11 +74,13 @@ describe('News API Handler', () => {
       json: () => Promise.resolve(mockApiResponse)
     });
 
-    const mockRequest = { method: 'GET' };
+    const mockRequest = {
+      method: 'GET'
+    } as any;
     const mockResponse = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn()
-    };
+    } as any;
 
     await handler(mockRequest, mockResponse);
 

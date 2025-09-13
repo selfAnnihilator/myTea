@@ -1,14 +1,14 @@
 // components/__tests__/ArticlesSection.test.tsx
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ArticlesSection from '../ArticlesSection';
+import ArticlesSection from '../../../src/components/sections/ArticlesSection';
 
 // Mock the hooks and services used by ArticlesSection
-jest.mock('../../hooks/useOnScreen', () => ({
+jest.mock('../../../src/hooks/useOnScreen', () => ({
   useOnScreen: () => [false]
 }));
 
-jest.mock('../../services/newsService', () => ({
+jest.mock('../../../src/services/newsService', () => ({
   fetchArticles: jest.fn()
 }));
 

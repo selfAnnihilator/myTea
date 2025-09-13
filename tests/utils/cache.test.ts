@@ -1,5 +1,5 @@
 // utils/__tests__/cache.test.ts
-import SimpleCache, { articleCache, ARTICLE_CACHE_KEY } from '../cache';
+import SimpleCache, { articleCache, ARTICLE_CACHE_KEY } from '../../src/utils/cache';
 
 describe('SimpleCache', () => {
   let cache: SimpleCache<any>;
@@ -91,7 +91,15 @@ describe('articleCache', () => {
   });
 
   test('should use ARTICLE_CACHE_KEY', () => {
-    const articles = [{ id: '1', title: 'Test Article' }];
+    const articles = [{ 
+      id: '1', 
+      title: 'Test Article',
+      imageUrl: 'https://example.com/image.jpg',
+      publisher: 'Test Publisher',
+      sourceUrl: 'https://example.com/article',
+      overview: 'Test overview',
+      category: 'Technology' as const
+    }];
     articleCache.set(ARTICLE_CACHE_KEY, articles);
     
     expect(articleCache.get(ARTICLE_CACHE_KEY)).toEqual(articles);

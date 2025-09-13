@@ -1,5 +1,5 @@
 // utils/__tests__/imageOptimizer.test.ts
-import { optimizeImageUrl, getPlaceholderImage } from '../imageOptimizer';
+import { optimizeImageUrl, getPlaceholderImage } from '../../src/utils/imageOptimizer';
 
 describe('imageOptimizer', () => {
   test('should return original URL if no optimization service is configured', () => {

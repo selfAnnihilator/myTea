@@ -65,8 +65,10 @@ class SimpleCache<T> {
   }
 }
 
+import type { Article } from '../types';
+
 // Create a singleton instance for article caching
-export const articleCache = new SimpleCache<unknown[]>();
+export const articleCache = new SimpleCache<Article[]>();
 
 // Cache key for articles
 export const ARTICLE_CACHE_KEY = 'articles';
