@@ -68,9 +68,15 @@ const App: React.FC = () => {
       <div 
         className="font-sans antialiased text-white selection:bg-teal-300 selection:text-black min-h-screen bg-transparent isolate"
       >
+        <a 
+          href="#main-content" 
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:rounded focus:ring-2 focus:ring-white"
+        >
+          Skip to main content
+        </a>
         <StaticRoomBackground />
 
-        <main>
+        <main id="main-content" role="main">
           <Navbar
             logo={logoSvg}
             logoAlt="MyTea Logo"
@@ -83,7 +89,7 @@ const App: React.FC = () => {
           />
           <HeroSection />
           <ArticlesSection />
-          <footer className="text-center py-8 text-white/50">
+          <footer className="text-center py-8 text-white/50" role="contentinfo">
             <p>&copy; {new Date().getFullYear()} MyTea. All Rights Reserved.</p>
           </footer>
         </main>

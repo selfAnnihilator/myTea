@@ -10,6 +10,7 @@ const LoadingSpinner: React.FC = () => {
         xmlns="http://www.w3.org/2000/svg"
         className="text-white"
         aria-hidden="true"
+        focusable="false"
       >
         <g fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             {/* Cup */}

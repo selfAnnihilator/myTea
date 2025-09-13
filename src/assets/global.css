@@ -1,0 +1,54 @@
+/* Global focus styles for accessibility */
+:focus {
+  outline: 2px solid #4ade80; /* Green focus ring */
+  outline-offset: 2px;
+}
+
+/* Specific focus styles for interactive elements */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid #4ade80;
+  outline-offset: 2px;
+}
+
+/* Focus styles for the skip link */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Custom focus styles for specific components */
+.hamburger-menu:focus {
+  outline: 2px solid #4ade80;
+  outline-offset: 2px;
+}
+
+.card-nav-cta-button:focus {
+  outline: 2px solid #4ade80;
+  outline-offset: 2px;
+}
+
+.nav-card-link:focus {
+  outline: 2px solid #4ade80;
+  outline-offset: 2px;
+}

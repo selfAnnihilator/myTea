@@ -153,8 +153,24 @@ const Navbar: React.FC<NavbarProps> = ({
       tl.play(0);
     } else {
       setIsHamburgerOpen(false);
-      tl.eventCallback('onReverseComplete', () => setIsExpanded(false));
+      tl.eventCallback('onReverseComplete', () => {
+        setIsExpanded(false);
+        // Focus the hamburger menu when closing
+        const hamburger = navRef.current?.querySelector('.hamburger-menu');
+        if (hamburger instanceof HTMLElement) {
+          hamburger.focus();
+        }
+      });
       tl.reverse();
+    }
+  };
+
+  const handleHamburgerKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleMenu();
+    } else if (e.key === 'Escape' && isExpanded) {
+      toggleMenu();
     }
   };
   
@@ -178,9 +194,10 @@ const Navbar: React.FC<NavbarProps> = ({
             onClick={toggleMenu}
             role="button"
             aria-label={isExpanded ? 'Close menu' : 'Open menu'}
+            aria-expanded={isExpanded}
             tabIndex={0}
             style={{ color: menuColor || '#000' }}
-            onKeyDown={(e) => e.key === 'Enter' && toggleMenu()}
+            onKeyDown={handleHamburgerKeyDown}
           >
             <div className="hamburger-line" />
             <div className="hamburger-line" />

@@ -103,6 +103,7 @@ const ArticlesSection: React.FC = () => {
                     : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'
                 }`}
                 aria-pressed={selectedCategory === category}
+                aria-label={`Filter articles by ${category} category`}
               >
                 {category}
               </button>

@@ -22,7 +22,8 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
       href={article.sourceUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="block group bg-white/10 backdrop-blur-lg rounded-xl shadow-2xl border border-white/20 overflow-hidden transform hover:-translate-y-2 transition-all duration-300 ease-in-out"
+      className="block group bg-white/10 backdrop-blur-lg rounded-xl shadow-2xl border border-white/20 overflow-hidden transform hover:-translate-y-2 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-white/50"
+      aria-label={`Read article: ${article.title}`}
     >
       <div className="relative">
         <img
