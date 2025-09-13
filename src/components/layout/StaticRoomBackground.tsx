@@ -95,7 +95,7 @@ const StaticRoomBackground: React.FC = () => {
            <foreignObject x="1060" y="460" width="480" height="260">
             {/* @ts-ignore */}
              <div xmlns="http://www.w3.org/1999/xhtml" style={{ backgroundColor: '#1a202c', color: '#a0aec0', fontFamily: 'monospace', fontSize: '14px', lineHeight: '1.3', whiteSpace: 'pre', overflow: 'hidden', padding: '10px', height: '100%', boxSizing: 'border-box' }}>
-                <p style={{ margin: 0, color: '#48bb78' }}>[local@mytea ~]$ <span style={{ color: '#a0aec0' }}>echo "Welcome!"</span></p>
+                <p style={{ margin: 0, color: '#48bb78' }}>[local@mytea ~]$ <span style={{ color: '#a0aec0' }}>echo &quot;Welcome!&quot;</span></p>
                 <p style={{ margin: 0 }}>Welcome!</p>
                 <p style={{ margin: 0, color: '#48bb78' }}>[local@mytea ~]$ <span style={{ color: '#a0aec0' }}>ls -l</span></p>
                 <p style={{ margin: 0 }}>total 1</p>

@@ -66,7 +66,7 @@ class SimpleCache<T> {
 }
 
 // Create a singleton instance for article caching
-export const articleCache = new SimpleCache<any[]>();
+export const articleCache = new SimpleCache<unknown[]>();
 
 // Cache key for articles
 export const ARTICLE_CACHE_KEY = 'articles';

@@ -88,7 +88,7 @@ const ArticlesSection: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <AnimatedSection className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black text-white font-display">Latest Articles</h2>
-          <p className="text-lg text-gray-300 mt-4">Discover what's happening around the world.</p>
+          <p className="text-lg text-gray-300 mt-4">Discover what&apos;s happening around the world.</p>
         </AnimatedSection>
 
         {!loading && articles.length > 0 && (
@@ -116,12 +116,6 @@ const ArticlesSection: React.FC = () => {
             <AnimatedSection className="text-center py-16 bg-red-900/20 rounded-lg">
                 <p className="text-2xl text-red-300 font-semibold">Could Not Load News</p>
                 <p className="text-lg text-red-300/80 mt-2">{error}</p>
-                <button
-                  onClick={handleRefresh}
-                  className="mt-4 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-md transition-colors"
-                >
-                  Try Again
-                </button>
             </AnimatedSection>
         )}
         

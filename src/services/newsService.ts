@@ -86,9 +86,9 @@ export const fetchArticles = async (): Promise<Article[]> => {
         articleCache.set(ARTICLE_CACHE_KEY, articles, CACHE_TTL);
         
         return articles;
-    } catch (parseError) {
+    } catch (error) {
         console.error("Failed to parse JSON response:", responseText);
-        throw new ApiError("Received malformed data from the backend.");
+        throw new ApiError(`Received malformed data from the backend: ${error.message}`);
     }
     
   } catch (error) {

@@ -62,9 +62,9 @@ function optimizeWithCloudinary(
 ): string {
   try {
     // Extract the public ID from the URL
-    const urlObj = new URL(url);
-    const pathname = urlObj.pathname;
-    const publicId = pathname.substring(pathname.lastIndexOf('/') + 1);
+    // const urlObj = new URL(url);
+    // const pathname = urlObj.pathname;
+    // const publicId = pathname.substring(pathname.lastIndexOf('/') + 1);
     
     // Build Cloudinary URL
     return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/fetch/w_${width},h_${height},q_${quality},c_fill/${encodeURIComponent(url)}`;

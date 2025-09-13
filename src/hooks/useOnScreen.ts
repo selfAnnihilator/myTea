@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { RefObject } from 'react';
 
-export const useOnScreen = <T extends Element,>(ref: RefObject<T>, options: IntersectionObserverInit = { threshold: 0.1 }): boolean => {
+export const useOnScreen = <T extends Element,>(ref: RefObject<T>, options: globalThis.IntersectionObserverInit = { threshold: 0.1 }): boolean => {
   const [isIntersecting, setIntersecting] = useState(false);
 
   useEffect(() => {
