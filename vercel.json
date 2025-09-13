@@ -19,12 +19,13 @@
       "dest": "/api/$1"
     },
     {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
   ],
-  "regions": ["iad1"],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  "regions": ["iad1"]
 }
