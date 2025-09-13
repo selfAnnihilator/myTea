@@ -5,6 +5,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   
   return {
+    base: './', // Use relative paths for assets
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
