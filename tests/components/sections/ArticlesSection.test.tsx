@@ -9,11 +9,16 @@ beforeAll(() => {
     observe: jest.fn(),
     unobserve: jest.fn(),
     disconnect: jest.fn(),
+    root: null,
+    rootMargin: '',
+    thresholds: [],
+    takeRecords: jest.fn(),
   }));
 });
 
 afterAll(() => {
   // Clean up the mock
+  // @ts-ignore
   delete global.IntersectionObserver;
 });
 

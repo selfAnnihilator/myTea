@@ -42,7 +42,7 @@ interface Article {
 
 // Add a retry function for API calls
 async function fetchWithRetry(url: string, retries: number = 3): Promise<Response> {
-  let lastError: Error;
+  let lastError: Error | null = null;
   
   for (let i = 0; i <= retries; i++) {
     try {
