@@ -2,7 +2,7 @@
 /**
  * @jest-environment jsdom
  */
-import { fetchArticles } from '../../src/services/newsService';
+import { fetchArticles, clearArticleCache } from '../../src/services/newsService';
 import { NetworkError, ApiError } from '../../src/utils/errors.ts';
 
 // Mock the fetch function
@@ -11,6 +11,7 @@ global.fetch = jest.fn();
 describe('newsService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    clearArticleCache(); // Clear cache before each test
   });
 
   test('fetchArticles should return articles when successful', async () => {
@@ -41,10 +42,19 @@ describe('newsService', () => {
     await expect(fetchArticles()).rejects.toThrow(NetworkError);
   });
 
-  test('fetchArticles should throw ApiError on API error response', async () => {
+  test('fetchArticles should throw NetworkError on API error response', async () => {
     (global.fetch as jest.Mock).mockResolvedValue({
       ok: false,
       status: 500
+    });
+
+    await expect(fetchArticles()).rejects.toThrow(NetworkError);
+  });
+
+  test('fetchArticles should throw ApiError on client error response', async () => {
+    (global.fetch as jest.Mock).mockResolvedValue({
+      ok: false,
+      status: 404
     });
 
     await expect(fetchArticles()).rejects.toThrow(ApiError);

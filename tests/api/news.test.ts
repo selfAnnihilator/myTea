@@ -14,7 +14,8 @@ describe('News API Handler', () => {
 
   test('should return 405 for non-GET requests', async () => {
     const mockRequest = {
-      method: 'POST'
+      method: 'POST',
+      query: {}
     } as any;
     const mockResponse = {
       status: jest.fn().mockReturnThis(),
@@ -33,7 +34,8 @@ describe('News API Handler', () => {
     delete process.env.NEWS_API_KEY;
 
     const mockRequest = {
-      method: 'GET'
+      method: 'GET',
+      query: {}
     } as any;
     const mockResponse = {
       status: jest.fn().mockReturnThis(),
@@ -69,13 +71,15 @@ describe('News API Handler', () => {
       ]
     };
 
+    // Mock fetch to return the same response for all category requests
     (global.fetch as jest.Mock).mockResolvedValue({
       ok: true,
       json: () => Promise.resolve(mockApiResponse)
     });
 
     const mockRequest = {
-      method: 'GET'
+      method: 'GET',
+      query: {}
     } as any;
     const mockResponse = {
       status: jest.fn().mockReturnThis(),

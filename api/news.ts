@@ -1,16 +1,10 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
 // The NewsAPI key is stored securely on the server.
-const API_KEY = process.env.NEWS_API_KEY;
 const NEWS_API_BASE_URL = 'https://newsapi.org/v2/top-headlines';
 
 // Define the categories to fetch from the API.
 const categories = ['Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology', 'Politics'];
-
-// Validate that the API key is present
-if (!API_KEY) {
-  console.error('NEWS_API_KEY environment variable is not set. Please add it in your Vercel project settings.');
-}
 
 // Simple in-memory cache
 const cache: { [key: string]: { data: any; timestamp: number } } = {};
@@ -75,16 +69,11 @@ async function fetchWithRetry(url: string, retries: number = 3): Promise<Respons
 /**
  * Fetches articles for a single category from NewsAPI.
  * @param category The category to fetch.
+ * @param apiKey The API key to use for the request.
  * @returns A promise that resolves to an array of processed articles.
  */
-async function getArticlesForCategory(category: string): Promise<Article[]> {
-  // Check if API key is available
-  if (!API_KEY) {
-    console.error('NEWS_API_KEY environment variable is not set. Please add it in your Vercel project settings.');
-    return [];
-  }
-
-  const url = `${NEWS_API_BASE_URL}?country=us&category=${category.toLowerCase()}&pageSize=20&apiKey=${API_KEY}`;
+async function getArticlesForCategory(category: string, apiKey: string): Promise<Article[]> {
+  const url = `${NEWS_API_BASE_URL}?country=us&category=${category.toLowerCase()}&pageSize=20&apiKey=${apiKey}`;
 
   try {
     const response = await fetchWithRetry(url);
@@ -122,7 +111,7 @@ async function getArticlesForCategory(category: string): Promise<Article[]> {
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
   // Health check endpoint
-  if (request.query.health === 'true') {
+  if (request.query && request.query.health === 'true') {
     return response.status(200).json({ 
       status: 'ok', 
       timestamp: new Date().toISOString(),
@@ -136,6 +125,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
   }
 
   // Check if API key is available
+  const API_KEY = process.env.NEWS_API_KEY;
   if (!API_KEY) {
     return response.status(500).json({ 
       message: "Server configuration error. Please add the NEWS_API_KEY environment variable in your Vercel project settings." 
@@ -153,7 +143,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
 
   try {
     // Fetch all categories concurrently for performance.
-    const promises = categories.map(getArticlesForCategory);
+    const promises = categories.map(category => getArticlesForCategory(category, API_KEY));
     const results = await Promise.all(promises);
 
     // Flatten the array of arrays into a single array.
