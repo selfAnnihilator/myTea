@@ -1,269 +1,120 @@
-# MyTea ☕ - Your Daily Brew of News
+# MyTea
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/your-username/mytea/blob/main/LICENSE)
-[![React](https://img.shields.io/badge/React-19-blue.svg)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-6-purple.svg)](https://vitejs.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue.svg)](https://www.typescriptlang.org/)
+MyTea is a React + TypeScript news app that fetches U.S. headlines through serverless API routes.
+It uses a card-style UI, category filters, lazy loading, and client/server caching to keep the experience fast.
 
-A modern, visually appealing news aggregator that serves fresh articles and stories from various categories. Built with React, TypeScript, and Vite, featuring smooth animations, responsive design, and a unique card-based navigation.
+## Features
 
-## 🌟 Features
+- Serverless backend route for fetching news from NewsAPI (`/api/news`)
+- Category filtering (`All`, Business, Entertainment, Health, Science, Sports, Technology, Politics)
+- Incremental loading (`Load More`)
+- Client-side cache (5 minutes)
+- Server-side in-memory cache in the API route (5 minutes)
+- Retry and error handling for network/API failures
+- Responsive layout with animated sections and typing effect hero
 
-- **Real-time News**: Fetches latest articles from multiple categories
-- **Smooth Animations**: Powered by GSAP for engaging user experience
-- **Responsive Design**: Works beautifully on all device sizes
-- **Category Filtering**: Browse articles by Business, Entertainment, Health, Politics, Science, Sports, and Technology
-- **Infinite Scrolling**: Load more articles as you browse
-- **Modern UI**: Card-based navigation with sleek animations
-- **Typing Effects**: Dynamic text animations in hero section
-- **Performance Optimized**: Lazy loading and efficient data fetching
-- **Robust Error Handling**: Retry mechanisms and user-friendly error messages
+## Tech Stack
 
-## 🚀 Getting Started
+- React 19
+- TypeScript 5
+- Vite 6
+- Jest + React Testing Library
+- GSAP
+- Vercel Serverless Functions (`api/*.ts`)
+- Tailwind utility classes (loaded via CDN in `index.html`)
 
-### Prerequisites
+## Prerequisites
 
-- Node.js (v16 or higher)
-- npm or yarn
+- Node.js 18+
+- npm
+- NewsAPI key from https://newsapi.org
 
-### Installation
+## Environment Variables
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/mytea.git
-   cd mytea
-   ```
+Create a `.env` file in the project root:
 
-2. Install dependencies:
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. Create a `.env` file in the root directory with your NewsAPI key:
-   ```env
-   NEWS_API_KEY=your_actual_api_key_here
-   ```
-
-4. Start the development server:
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-
-5. Open your browser and visit `http://localhost:5173`
-
-### Building for Production
-
-```bash
-npm run build
-# or
-yarn build
+```env
+NEWS_API_KEY=your_actual_api_key_here
 ```
 
-### Preview Production Build
+You can copy from `.env.example` and replace the placeholder value.
+
+## Getting Started
 
 ```bash
-npm run preview
-# or
-yarn preview
+npm install
+npm run dev
 ```
 
-### Running in Production
+App runs at `http://localhost:5173`.
+
+## Available Scripts
+
+- `npm run dev` - Start Vite dev server
+- `npm run build` - Build production assets
+- `npm run preview` - Preview production build locally on port `4173`
+- `npm start` - Alias for `npm run preview`
+- `npm run lint` - Lint `src` (`.ts`, `.tsx`)
+- `npm run lint:fix` - Auto-fix lint issues
+- `npm run type-check` - Run TypeScript checks with `tsc --noEmit`
+- `npm run test` - Run tests once
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:coverage` - Run tests with coverage and JUnit output
+- `npm run build:analyze` - Build and run bundle visualizer
+- `npm run ci` - Run lint, type-check, test, and build
+
+## API Routes
+
+- `GET /api/news` - Returns normalized and deduplicated articles
+- `GET /api/news?health=true` - Health check on the news endpoint
+- `GET /api/health` - Basic health check endpoint
+
+## Testing
 
 ```bash
-# Build the frontend first
-npm run build
-
-# Start the production server
-npm start
+npm run test
+npm run test:coverage
 ```
 
-### Building for Production
+Test files are in the `tests/` directory and `src/**/*.test.ts`.
 
-```bash
-npm run build
-# or
-yarn build
-```
+## Deployment
 
-### Preview Production Build
+### Vercel (recommended)
 
-```bash
-npm run preview
-# or
-yarn preview
-```
-
-## 🛠️ Technologies Used
-
-- **Frontend**: React 19, TypeScript, Tailwind CSS
-- **Build Tool**: Vite 6
-- **Animations**: GSAP
-- **Backend**: Vercel Serverless Functions
-- **API**: NewsAPI
-- **Deployment**: Vercel, Docker
-
-## 🛡️ Error Handling
-
-The application implements comprehensive error handling strategies:
-
-- **Network Resilience**: Automatic retry mechanisms for failed API requests
-- **User-Friendly Messages**: Clear, actionable error messages for different failure scenarios
-- **Graceful Degradation**: Components continue to function even when non-critical errors occur
-- **Error Boundaries**: Prevents application crashes from unhandled exceptions
-- **Type Safety**: TypeScript ensures fewer runtime errors through compile-time checking
-
-## 📦 Deployment Options
-
-### Vercel (Recommended)
-
-1. Fork this repository to your GitHub account
-2. Create an account at [Vercel](https://vercel.com/)
-3. Create a new project and connect it to your repository
-4. Add your `NEWS_API_KEY` as an environment variable in your Vercel project settings:
-   - Go to your project settings
-   - Navigate to "Environment Variables"
-   - Add a new variable with the key `NEWS_API_KEY` and your actual API key as the value
-5. Deploy!
+1. Import repo into Vercel.
+2. Add `NEWS_API_KEY` in project environment variables.
+3. Deploy.
 
 ### Docker
 
 ```bash
-# Build the Docker image
 docker build -t mytea .
-
-# Run the container with environment variable
 docker run -p 4173:4173 -e NEWS_API_KEY=your_actual_api_key_here mytea
 ```
 
-### Self-hosted
+### More details
 
-1. Clone the repository to your server
-2. Install Node.js (v16 or higher)
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-4. Set the environment variable for the NewsAPI key:
-   ```bash
-   export NEWS_API_KEY=your_actual_api_key_here
-   ```
-5. Build the frontend:
-   ```bash
-   npm run build
-   ```
-6. Start the server:
-   ```bash
-   npm start
-   ```
+See `DEPLOYMENT.md` for full deployment and CI/CD notes.
 
-The application will be available at `http://localhost:4173`
+## Project Structure
 
-## ⚡ Performance Optimizations
-
-The application includes several performance optimizations to ensure fast loading and smooth user experience:
-
-### Caching Strategies
-- **Client-side caching**: Articles are cached in the browser for 5 minutes to reduce API calls
-- **Server-side caching**: API responses are cached on the server for 5 minutes to reduce external API calls
-- **Cache invalidation**: Manual refresh button allows users to clear cache and fetch fresh data
-
-### Image Optimization
-- **Dynamic image resizing**: Images are automatically resized based on display requirements
-- **Quality optimization**: Image quality is adjusted for optimal balance between quality and performance
-- **Lazy loading**: Images are loaded only when they come into view
-- **Placeholder images**: SVG placeholders are shown while images are loading
-- **Error fallbacks**: Graceful degradation when images fail to load
-
-### Code Optimizations
-- **Bundle splitting**: Code is split into smaller chunks for faster initial loading
-- **Tree shaking**: Unused code is removed from the final bundle
-- **Minification**: Code is minified for smaller bundle sizes
-- **Gzip compression**: Assets are compressed for faster network transfer
-
-## 📁 Project Structure
-
-```
-mytea/
-├── api/                 # Vercel serverless functions
-├── components/          # React components
-├── hooks/               # Custom React hooks
-├── services/            # API service functions
-├── public/              # Static assets
-├── src/                 # Main source files
-├── App.tsx             # Main application component
-├── index.html          # HTML entry point
-├── index.tsx           # React DOM renderer
-├── package.json        # Project dependencies and scripts
-├── tsconfig.json       # TypeScript configuration
-├── vite.config.ts      # Vite configuration
-└── vercel.json         # Vercel deployment configuration
+```text
+myTea/
+  api/                  # Vercel serverless functions
+  src/                  # React application code
+    components/
+    hooks/
+    services/
+    utils/
+    assets/
+  tests/                # Unit and component tests
+  README.md
+  DEPLOYMENT.md
+  package.json
+  vite.config.ts
 ```
 
-## 🤝 Contributing
+## License
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 🧪 Testing
-
-This project includes comprehensive unit tests using Jest and React Testing Library. Tests are organized in `__tests__` directories alongside the code they test.
-
-### Running Tests
-
-```bash
-# Run all tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-```
-
-### Test Structure
-
-- `__tests__/` - Basic tests
-- `api/__tests__/` - API endpoint tests
-- `components/__tests__/` - React component tests
-- `hooks/__tests__/` - React hook tests
-- `services/__tests__/` - Service layer tests
-- `utils/__tests__/` - Utility function tests
-
-### Test Coverage
-
-Tests cover:
-- Custom error classes
-- API endpoint validation
-- React component rendering and behavior
-- React hooks functionality
-- Service function behavior
-- News fetching and error handling
-- Utility functions
-
-### Test Technologies
-
-- **Jest** - JavaScript testing framework
-- **React Testing Library** - React component testing utilities
-- **jsdom** - DOM environment for testing
-- **Mocking** - Network requests, browser APIs, and dependencies
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgements
-
-- [NewsAPI](https://newsapi.org/) for providing the news data
-- [GSAP](https://greensock.com/gsap/) for the animation library
-- [Vite](https://vitejs.dev/) for the amazing build tool
-- [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
-
----
-<p align="center">Made with ☕ and ❤️</p>
+MIT. See `LICENSE`.
